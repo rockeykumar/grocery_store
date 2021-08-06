@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { updateSelectedProducts } from "../actions/productAction";
 import "../App.css";
 
@@ -7,6 +8,8 @@ const UpdateScreen = (props) => {
   document.title = "Update";
   const dispatch = useDispatch();
   const productId = props.match.params.itemId;
+
+  const history = useHistory();
 
   const products = useSelector((state) => state.allProducts.products);
   const product = products.filter((ele) => {
@@ -44,6 +47,7 @@ const UpdateScreen = (props) => {
   const updateHandle = () => {
     dispatch(updateSelectedProducts(useData));
     alert("Update Successfully...!");
+    history.goBack();
   };
 
   useEffect(() => {
@@ -58,7 +62,7 @@ const UpdateScreen = (props) => {
 
   return (
     <>
-      <div className="container">
+      <div className="container user-select-none">
         <div className="row mt-4">
           <div className="col display-5 mb-3">Update Product</div>
           <hr />

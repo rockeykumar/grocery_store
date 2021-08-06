@@ -2,12 +2,27 @@ import "../App.css";
 import { useState } from "react";
 import Select from "react-select";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { ProductList, WeightInKilogram, WeightInGram } from "../DataList";
 import { useDispatch, useSelector } from "react-redux";
 import { setProducts } from "../actions/productAction";
 
 const Dashboard = () => {
   document.title = "MyStore";
+  const notify = () => {
+    toast.success("Item add successfully...!", {
+      position: "top-center",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+
   const Products = useSelector((state) => state.allProducts.products);
   const isExist = (useData) => {
     return Products.some((item) => useData.ItemName === item.ItemName);
@@ -47,12 +62,31 @@ const Dashboard = () => {
   };
 
   const addItemButton = () => {
-    if (useData.ItemName.length <= 0 || useData.Weight.length <= 0)
-      alert("Choose Any One Item");
-    else {
-      if (isExist(useData)) alert("Item Already Exit");
-      else dispatch(setProducts(useData));
-
+    if (useData.ItemName.length <= 0 || useData.Weight.length <= 0) {
+      toast.info("Choose any one Item !", {
+        position: "top-center",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      if (isExist(useData)) {
+        toast.error("Item Already Exit...!", {
+          position: "top-center",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      } else {
+        notify();
+        dispatch(setProducts(useData));
+      }
       setItemNameValue(null);
       setKilogramValue(null);
       setGramValue(null);
@@ -67,18 +101,38 @@ const Dashboard = () => {
   };
 
   const manualAddItemButton = () => {
-    if (useData.ItemName.length <= 0) alert("Choose Any One Item");
-    else {
-      if (isExist(useData)) alert("Item Already Exit");
-      else dispatch(setProducts(useData));
-
+    if (useData.ItemName.length <= 0) {
+      toast.info("Choose any one Item !", {
+        position: "top-center",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      if (isExist(useData)) {
+        toast.error("Item Already Exit...!", {
+          position: "top-center",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      } else {
+        notify();
+        dispatch(setProducts(useData));
+      }
       setUserData({ ItemName: "", Weight: "" });
     }
   };
 
   return (
     <>
-      <div className="container p-4">
+      <div className="container p-4 user-select-none">
         <div className="row">
           <div className="col-md-12">
             <div className="mb-3">
@@ -193,6 +247,8 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+
+      <ToastContainer />
     </>
   );
 };

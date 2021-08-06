@@ -1,5 +1,9 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { useDispatch, useSelector } from "react-redux";
 import ReactToPrint from "react-to-print";
 import { removeSelectedProduct } from "../actions/productAction";
@@ -19,6 +23,15 @@ const Cart = () => {
   const deleteProduct = (id) => {
     console.log(id);
     dispatch(removeSelectedProduct(id));
+    toast.error("Item Deleted successfully...!", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
 
   const renderList = products.map((product, ind) => {
@@ -61,7 +74,7 @@ const Cart = () => {
 
   return (
     <>
-      <div className="container">
+      <div className="container user-select-none">
         <div className="row mt-2">
           <div className="col">
             <div style={{ display: "none" }}>
@@ -91,6 +104,8 @@ const Cart = () => {
           <tbody>{renderList}</tbody>
         </table>
       </div>
+
+      <ToastContainer />
     </>
   );
 };
