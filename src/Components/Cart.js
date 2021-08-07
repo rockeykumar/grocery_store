@@ -90,7 +90,7 @@ const Cart = () => {
           </div>
         </div>
         <div className="row mt-0">
-          <div className="col text-center display-5">!! नराया जी !!</div>
+          <div className="col text-center display-5">!! नारायण जी !!</div>
         </div>
         <table className="table table-striped mt-3">
           <thead>

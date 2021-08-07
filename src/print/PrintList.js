@@ -69,7 +69,7 @@ const PrintList = React.forwardRef((props, ref) => {
           {currDate}/{currMonth}/{year}
         </span> */}
         <div className="row m-1">
-          <div className="col text-center display-5">!! नराया जी !!</div>
+          <div className="col text-center display-5">!! नारायण जी !!</div>
         </div>
         <span className="float-end fs-5" style={{ marginTop: "-40px" }}>
           {currDate}/{currMonth}/{year}
