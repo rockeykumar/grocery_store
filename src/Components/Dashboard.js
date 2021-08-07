@@ -147,7 +147,8 @@ const Dashboard = () => {
   };
 
   const helperAddItem = (propsData) => {
-    if (propsData.ItemName.length <= 0 || propsData.customWeight.length <= 0) {
+    console.log(propsData.Weight);
+    if (propsData.ItemName.length <= 0 || propsData.Weight.length <= 0) {
       toast.info("Choose any one Item !", {
         position: "top-center",
         autoClose: 1500,
