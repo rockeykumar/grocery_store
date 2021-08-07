@@ -97,7 +97,7 @@ const Cart = () => {
             <tr>
               <th scope="col">#</th>
               <th scope="col">Item Name</th>
-              <th scope="col">Kg./Gram.</th>
+              <th scope="col">Type</th>
               <th scope="col">Operation</th>
             </tr>
           </thead>

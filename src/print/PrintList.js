@@ -79,7 +79,7 @@ const PrintList = React.forwardRef((props, ref) => {
             <tr>
               <th scope="col">#</th>
               <th scope="col">Item Name</th>
-              <th scope="col">Kg./Gram.</th>
+              <th scope="col">Type</th>
             </tr>
           </thead>
           <tbody>{renderList}</tbody>

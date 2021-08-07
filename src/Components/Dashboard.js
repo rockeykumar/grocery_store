@@ -35,6 +35,12 @@ const Dashboard = () => {
     Weight: "",
   });
 
+  const [userManualData, setUserManualData] = useState({
+    ItemName: "",
+    customWeight: "",
+    type: "",
+  });
+
   const [ItemNameValue, setItemNameValue] = useState("");
   const NameHandleChange = (ItemNmameProps) => {
     const ItemName = "ItemName";
@@ -97,11 +103,51 @@ const Dashboard = () => {
   const manualInputHandle = (event) => {
     const { name, value } = event.target;
     console.log(value);
-    setUserData({ ...useData, [name]: value });
+    setUserManualData({ ...userManualData, [name]: value });
   };
 
   const manualAddItemButton = () => {
-    if (useData.ItemName.length <= 0) {
+    if (userManualData.ItemName.length <= 0) {
+      toast.info("Type Item Name...!", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      if (
+        userManualData.customWeight.length > 0 &&
+        userManualData.type.length > 0
+      ) {
+        let custItemName = userManualData.ItemName;
+        let custWeight = userManualData.customWeight;
+        let type = userManualData.type;
+
+        let value = custWeight + " " + type;
+        const data = {
+          ItemName: custItemName,
+          Weight: value,
+        };
+        helperAddItem(data);
+      } else {
+        toast.info("Select weight + type...!", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+    }
+  };
+
+  const helperAddItem = (propsData) => {
+    if (propsData.ItemName.length <= 0 || propsData.customWeight.length <= 0) {
       toast.info("Choose any one Item !", {
         position: "top-center",
         autoClose: 1500,
@@ -112,7 +158,7 @@ const Dashboard = () => {
         progress: undefined,
       });
     } else {
-      if (isExist(useData)) {
+      if (isExist(propsData)) {
         toast.error("Item Already Exit...!", {
           position: "top-center",
           autoClose: 1500,
@@ -124,9 +170,12 @@ const Dashboard = () => {
         });
       } else {
         notify();
-        dispatch(setProducts(useData));
+        dispatch(setProducts(propsData));
       }
-      setUserData({ ItemName: "", Weight: "" });
+      setItemNameValue(null);
+      setKilogramValue(null);
+      setGramValue(null);
+      setUserManualData({ ItemName: "", customWeight: "" });
     }
   };
 
@@ -216,7 +265,7 @@ const Dashboard = () => {
                   className="form-control"
                   placeholder="Enter Item Name"
                   onChange={manualInputHandle}
-                  value={useData.ItemName}
+                  value={userManualData.ItemName}
                 />
               </div>
             </div>
@@ -224,67 +273,61 @@ const Dashboard = () => {
 
           <div className="row">
             <div className=" col-lg-6 mb-3">
-              <label htmlFor="exampleInputEmail1" className="form-label">
-                Weight
-              </label>
+              <label className="form-label">Weight</label>
               <input
                 type="text"
-                name="Weight"
+                name="customWeight"
                 className="form-control"
                 placeholder="eg. 2 set, 4 packet, 5 kg, 250 gram"
                 onChange={manualInputHandle}
-                value={useData.Weight}
+                value={userManualData.customWeight}
               />
             </div>
 
             <div className="col-lg-6 mb-3">
               <div className="row mt-1">
                 <div className="col-3 border-end">
-                  <label htmlFor="exampleInputEmail1" className="form-label">
-                    Set
-                  </label>
+                  <label className="form-label">Set</label>
                   <br />
                   <input
                     type="radio"
-                    name="customWeight"
+                    name="type"
                     value="set"
                     className="mx-1"
+                    onChange={manualInputHandle}
                   />
                 </div>
                 <div className="col-3 border-end ">
-                  <label htmlFor="exampleInputEmail1" className="form-label">
-                    Packet
-                  </label>
+                  <label className="form-label">Packet</label>
                   <br />
                   <input
                     type="radio"
-                    name="customWeight"
+                    name="type"
                     value="packet"
                     className="mx-3"
+                    onChange={manualInputHandle}
                   />
                 </div>
                 <div className="col-3 border-end ">
-                  <label htmlFor="exampleInputEmail1" className="form-label">
-                    Kg.
-                  </label>
+                  <label className="form-label">Kg.</label>
                   <br />
                   <input
                     type="radio"
-                    name="customWeight"
+                    name="type"
                     value="kg"
                     className="mx-1"
+                    onChange={manualInputHandle}
                   />
                 </div>
                 <div className="col-3 ">
-                  <label htmlFor="exampleInputEmail1" className="form-label">
-                    Gram
-                  </label>
+                  <label className="form-label">Gram</label>
                   <br />
                   <input
                     type="radio"
-                    name="customWeight"
+                    name="type"
                     value="gram"
                     className="mx-2"
+                    onChange={manualInputHandle}
                   />
                 </div>
               </div>
