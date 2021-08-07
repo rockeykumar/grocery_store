@@ -274,7 +274,7 @@ const Dashboard = () => {
 
           <div className="row">
             <div className=" col-lg-6 mb-3">
-              <label className="form-label">Weight</label>
+              <label className="form-label">Set / Packet / Kg. / Gram</label>
               <input
                 type="text"
                 name="customWeight"
