@@ -107,7 +107,7 @@ const Dashboard = () => {
   };
 
   const manualAddItemButton = () => {
-    if (userManualData.ItemName.length <= 0) {
+    if (userManualData.ItemName.length <= 2) {
       toast.info("Type Item Name...!", {
         position: "top-center",
         autoClose: 3000,
@@ -149,7 +149,7 @@ const Dashboard = () => {
   const helperAddItem = (propsData) => {
     console.log(propsData.Weight);
     if (propsData.ItemName.length <= 0 || propsData.Weight.length <= 0) {
-      toast.info("Choose any one Item !", {
+      toast.info("Invalid Input...!", {
         position: "top-center",
         autoClose: 1500,
         hideProgressBar: false,
